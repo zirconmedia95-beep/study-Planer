@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { Loader2, Sparkles, X } from 'lucide-react';
 import { COLORS, TYPE_CONFIG } from '../lib/constants.js';
-import { dateStr } from '../lib/scheduler.js';
+import { dateStr, fmtDate } from '../lib/scheduler.js';
 import { Field } from './ui.jsx';
 
-export default function TaskModal({ subjects, editingTask, onAdd, onSave, onClose }) {
+export default function TaskModal({ subjects, editingTask, occurrenceDate, onAdd, onSave, onCancelOccurrence, onClose }) {
   const isEdit = !!editingTask;
   const [nlText, setNlText] = useState('');
   const [nlLoading, setNlLoading] = useState(false);
@@ -109,6 +109,22 @@ export default function TaskModal({ subjects, editingTask, onAdd, onSave, onClos
             <X size={18} />
           </button>
         </div>
+
+        {isEdit && editingTask.recurrence && occurrenceDate && (
+          <div className="mb-4 p-3 rounded-xl flex items-center justify-between gap-3 flex-wrap" style={{ background: COLORS.rustSoft }}>
+            <div className="text-xs" style={{ color: COLORS.rust }}>
+              This repeats {editingTask.recurrence.freq}. Just cancelled for {fmtDate(occurrenceDate)}?
+            </div>
+            <button
+              type="button"
+              onClick={() => onCancelOccurrence(editingTask.id, occurrenceDate)}
+              className="px-3 py-1.5 rounded-lg text-xs font-medium text-white shrink-0 hover:opacity-90 transition-opacity"
+              style={{ background: COLORS.rust }}
+            >
+              Cancel this date only
+            </button>
+          </div>
+        )}
 
         {!isEdit && (
           <div className="mb-5 p-3 rounded-xl" style={{ background: COLORS.paperAlt }}>
