@@ -45,6 +45,7 @@ export function fmtDate(ds) {
 
 export function isOccurring(task, ds) {
   if (!task.isFixed) return false;
+  if (task.cancelledDates && task.cancelledDates.includes(ds)) return false;
   if (!task.recurrence) return task.date === ds;
   if (ds < task.date) return false;
   if (task.recurrence.until && ds > task.recurrence.until) return false;
