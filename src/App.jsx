@@ -18,6 +18,7 @@ export default function App() {
   const [view, setView] = useState('dashboard');
   const [modalOpen, setModalOpen] = useState(false);
   const [editingTask, setEditingTask] = useState(null);
+  const [editingOccurrenceDate, setEditingOccurrenceDate] = useState(null);
   const [now, setNow] = useState(new Date());
   const [syncStatus, setSyncStatus] = useState('checking'); // 'checking' | 'synced' | 'local'
 
@@ -96,15 +97,22 @@ export default function App() {
   }
   function openAdd() {
     setEditingTask(null);
+    setEditingOccurrenceDate(null);
     setModalOpen(true);
   }
-  function openEdit(task) {
+  function openEdit(task, occurrenceDate = null) {
     setEditingTask(task);
+    setEditingOccurrenceDate(occurrenceDate);
     setModalOpen(true);
   }
   function closeModal() {
     setModalOpen(false);
     setEditingTask(null);
+    setEditingOccurrenceDate(null);
+  }
+  function cancelOccurrence(id, ds) {
+    setTasks((prev) => prev.map((t) => (t.id === id ? { ...t, cancelledDates: [...(t.cancelledDates || []), ds] } : t)));
+    closeModal();
   }
 
   const examDays = daysBetween(today, settings.examDate);
@@ -126,6 +134,7 @@ export default function App() {
             todayTasks={todayTasks}
             atRiskTasks={atRiskTasks}
             subjects={subjects}
+            today={today}
             onDone={markDone}
             onUndo={undoDone}
             onMissed={markMissed}
@@ -162,7 +171,17 @@ export default function App() {
           <SettingsView subjects={subjects} setSubjects={setSubjects} settings={settings} setSettings={setSettings} syncStatus={syncStatus} />
         )}
       </main>
-      {modalOpen && <TaskModal subjects={subjects} editingTask={editingTask} onAdd={addTaskAndClose} onSave={saveTask} onClose={closeModal} />}
+      {modalOpen && (
+        <TaskModal
+          subjects={subjects}
+          editingTask={editingTask}
+          occurrenceDate={editingOccurrenceDate}
+          onAdd={addTaskAndClose}
+          onSave={saveTask}
+          onCancelOccurrence={cancelOccurrence}
+          onClose={closeModal}
+        />
+      )}
     </div>
   );
 }
