@@ -3,7 +3,8 @@ import { COLORS } from '../lib/constants.js';
 import TaskCard from './TaskCard.jsx';
 import QuickAddChat from './QuickAddChat.jsx';
 
-export default function Dashboard({ todayTasks, atRiskTasks, subjects, onDone, onUndo, onMissed, onDelete, onMoreTime, onEdit, onAdd, onQuickAdd, onRefresh, onStart, onStop }) {
+export default function Dashboard({ todayTasks, atRiskTasks, subjects, today, onDone, onUndo, onMissed, onDelete, onMoreTime, onEdit, onAdd, onQuickAdd, onRefresh, onStart, onStop }) {
+  const editWithToday = (t) => onEdit(t, today);
   return (
     <div>
       <div className="flex items-center justify-between mb-6 gap-3">
@@ -45,7 +46,7 @@ export default function Dashboard({ todayTasks, atRiskTasks, subjects, onDone, o
         ) : (
           <div className="px-4">
             {todayTasks.map((t) => (
-              <TaskCard key={t.id} task={t} subjects={subjects} onDone={onDone} onUndo={onUndo} onMissed={onMissed} onDelete={onDelete} onMoreTime={onMoreTime} onEdit={onEdit} onStart={onStart} onStop={onStop} />
+              <TaskCard key={t.id} task={t} subjects={subjects} onDone={onDone} onUndo={onUndo} onMissed={onMissed} onDelete={onDelete} onMoreTime={onMoreTime} onEdit={editWithToday} onStart={onStart} onStop={onStop} />
             ))}
           </div>
         )}
