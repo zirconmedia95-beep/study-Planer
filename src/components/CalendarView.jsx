@@ -101,7 +101,7 @@ export default function CalendarView({ tasks, today, now, onEdit }) {
                   return (
                     <button
                       key={t.id}
-                      onClick={() => onEdit(t)}
+                      onClick={() => onEdit(t, ds)}
                       className="absolute left-0.5 right-0.5 rounded-md px-1.5 py-0.5 overflow-hidden text-left text-[10px] leading-tight hover:brightness-95 transition-[filter]"
                       style={{
                         top: (s - DAY_START) * PX_PER_MIN,
