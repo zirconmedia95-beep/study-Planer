@@ -61,12 +61,6 @@ export default function Sidebar({ view, setView, examDays, atRiskCount }) {
           );
         })}
       </nav>
-      <div className="px-5 py-5">
-      <div className="text-[8.5px] uppercase tracking-[0.14em]" style={{ color: COLORS.inkSoft }}>
-            Developed by D_Navodye_
-            © 2026|All rights reserved.
-          </div>
-      </div>
     </aside>
   );
 }
