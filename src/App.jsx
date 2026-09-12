@@ -6,6 +6,7 @@ import CalendarView from './components/CalendarView.jsx';
 import ProgressView from './components/ProgressView.jsx';
 import SettingsView from './components/SettingsView.jsx';
 import TaskModal from './components/TaskModal.jsx';
+import Footer from './components/Footer.jsx';
 import { COLORS, DEFAULT_SETTINGS, DEFAULT_SUBJECTS } from './lib/constants.js';
 import { dateStr, daysBetween, isOccurring, runScheduler, uid } from './lib/scheduler.js';
 import { loadState, saveState } from './lib/storage.js';
@@ -126,51 +127,54 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col md:flex-row" style={{ background: COLORS.paper, color: COLORS.ink }}>
-      <Sidebar view={view} setView={setView} examDays={examDays} atRiskCount={atRiskTasks.length} />
-      <main className="flex-1 px-5 py-6 md:px-10 md:py-10 max-w-5xl w-full">
-        {view === 'dashboard' && (
-          <Dashboard
-            todayTasks={todayTasks}
-            atRiskTasks={atRiskTasks}
-            subjects={subjects}
-            today={today}
-            onDone={markDone}
-            onUndo={undoDone}
-            onMissed={markMissed}
-            onDelete={deleteTask}
-            onMoreTime={needMoreTime}
-            onEdit={openEdit}
-            onAdd={openAdd}
-            onQuickAdd={addTask}
-            onRefresh={forceRefresh}
-            onStart={startTask}
-            onStop={stopTask}
-          />
-        )}
-        {view === 'calendar' && <CalendarView tasks={plannedTasks} today={today} now={now} onEdit={openEdit} />}
-        {view === 'tasks' && (
-          <TasksView
-            upcomingTasks={upcomingTasks}
-            doneTasks={doneTasks}
-            atRiskTasks={atRiskTasks}
-            subjects={subjects}
-            onDone={markDone}
-            onUndo={undoDone}
-            onMissed={markMissed}
-            onDelete={deleteTask}
-            onMoreTime={needMoreTime}
-            onEdit={openEdit}
-            onAdd={openAdd}
-            onStart={startTask}
-            onStop={stopTask}
-          />
-        )}
-        {view === 'progress' && <ProgressView tasks={plannedTasks} subjects={subjects} />}
-        {view === 'settings' && (
-          <SettingsView subjects={subjects} setSubjects={setSubjects} settings={settings} setSettings={setSettings} syncStatus={syncStatus} />
-        )}
-      </main>
+    <div className="min-h-screen flex flex-col" style={{ background: COLORS.paper, color: COLORS.ink }}>
+      <div className="flex-1 flex flex-col md:flex-row">
+        <Sidebar view={view} setView={setView} examDays={examDays} atRiskCount={atRiskTasks.length} />
+        <main className="flex-1 px-5 py-6 md:px-10 md:py-10 max-w-5xl w-full">
+          {view === 'dashboard' && (
+            <Dashboard
+              todayTasks={todayTasks}
+              atRiskTasks={atRiskTasks}
+              subjects={subjects}
+              today={today}
+              onDone={markDone}
+              onUndo={undoDone}
+              onMissed={markMissed}
+              onDelete={deleteTask}
+              onMoreTime={needMoreTime}
+              onEdit={openEdit}
+              onAdd={openAdd}
+              onQuickAdd={addTask}
+              onRefresh={forceRefresh}
+              onStart={startTask}
+              onStop={stopTask}
+            />
+          )}
+          {view === 'calendar' && <CalendarView tasks={plannedTasks} today={today} now={now} onEdit={openEdit} />}
+          {view === 'tasks' && (
+            <TasksView
+              upcomingTasks={upcomingTasks}
+              doneTasks={doneTasks}
+              atRiskTasks={atRiskTasks}
+              subjects={subjects}
+              onDone={markDone}
+              onUndo={undoDone}
+              onMissed={markMissed}
+              onDelete={deleteTask}
+              onMoreTime={needMoreTime}
+              onEdit={openEdit}
+              onAdd={openAdd}
+              onStart={startTask}
+              onStop={stopTask}
+            />
+          )}
+          {view === 'progress' && <ProgressView tasks={plannedTasks} subjects={subjects} />}
+          {view === 'settings' && (
+            <SettingsView subjects={subjects} setSubjects={setSubjects} settings={settings} setSettings={setSettings} syncStatus={syncStatus} />
+          )}
+        </main>
+      </div>
+      <Footer />
       {modalOpen && (
         <TaskModal
           subjects={subjects}
