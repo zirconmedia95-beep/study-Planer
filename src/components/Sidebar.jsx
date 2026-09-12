@@ -61,9 +61,11 @@ export default function Sidebar({ view, setView, examDays, atRiskCount }) {
           );
         })}
       </nav>
+      <div className="px-5 py-5">
       <div className="text-[9px] uppercase tracking-[0.14em]" style={{ color: COLORS.inkSoft }}>
             D_Navodye_
           </div>
+      </div>
     </aside>
   );
 }
