@@ -18,9 +18,6 @@ export default function Sidebar({ view, setView, examDays, atRiskCount }) {
         <div className="text-sm font-semibold tracking-tight hidden md:flex items-center gap-2 mb-4">
           <span className="w-2 h-2 rounded-full" style={{ background: COLORS.indigo }} />
           TASK ENGINE
-          <div className="text-[9px] uppercase tracking-[0.14em]" style={{ color: COLORS.inkSoft }}>
-            D_Navodye_
-          </div>
         </div>
         <div className="text-[11px] uppercase tracking-[0.14em]" style={{ color: COLORS.inkSoft }}>
           A/L countdown
@@ -64,6 +61,9 @@ export default function Sidebar({ view, setView, examDays, atRiskCount }) {
           );
         })}
       </nav>
+      <div className="text-[9px] uppercase tracking-[0.14em]" style={{ color: COLORS.inkSoft }}>
+            D_Navodye_
+          </div>
     </aside>
   );
 }
